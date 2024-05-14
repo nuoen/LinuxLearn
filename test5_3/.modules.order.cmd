@@ -1,0 +1,1 @@
+cmd_/home/nuoen/linux-6.7.12/kmodule/test5_3/modules.order := {   echo /home/nuoen/linux-6.7.12/kmodule/test5_3/exporttest.ko;   echo /home/nuoen/linux-6.7.12/kmodule/test5_3/importtest.ko; :; } | awk '!x[$$0]++' - > /home/nuoen/linux-6.7.12/kmodule/test5_3/modules.order

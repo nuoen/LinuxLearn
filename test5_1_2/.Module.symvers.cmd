@@ -1,0 +1,1 @@
+cmd_/home/nuoen/linux-6.7.12/kmodule/test1/Module.symvers := sed 's/\.ko$$/\.o/' /home/nuoen/linux-6.7.12/kmodule/test1/modules.order | scripts/mod/modpost -m -a  -o /home/nuoen/linux-6.7.12/kmodule/test1/Module.symvers -e -i Module.symvers   -T -
