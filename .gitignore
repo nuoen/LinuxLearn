@@ -2,4 +2,7 @@
 .modules*
 .Module*
 .cmd
-
+.ko
+.mod
+.symvers
+.order
