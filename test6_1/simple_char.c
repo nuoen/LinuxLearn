@@ -29,37 +29,68 @@ static int demodrv_release(struct inode * inode,struct file *file){
     return 0;
 }
 //ssize_t (*file_operations::write)(struct file *, const char *, size_t, loff_t *)
-static ssize_t demodrv_write(struct file *file,const char __usr *buf,size_t count,loff_t *f_pos){
+static ssize_t demodrv_write(struct file *file,const char *buf,size_t count,loff_t *f_pos){
     printk("%s enter\n",__func__);
+    return 0;
 }
 
 
-static const struct file_operations demodrc_fops ={
+static const struct file_operations demodrv_fops ={
     .owner = THIS_MODULE,
     .open = demodrv_open,
     .read =demodrv_read,
     .release = demodrv_release,
     .write = demodrv_write
-}
+};
 
 
-static void __init simple_char_init(void){
+static int __init simple_char_init(void){
     int ret;
     ret = alloc_chrdev_region(&dev,0,count,DEMO_NAME);
     if(ret){
         printk("failed to allocate char device region");
         return ret;
     }
+    demo_cdev = cdev_alloc();
+    if(!demo_cdev){
+        printk("cdev_alloc failed\n");
+        goto unregister_chrdev;
+    }
+
+    cdev_init(demo_cdev,&demodrv_fops);
+
+    ret = cdev_add(demo_cdev,dev,count);
+    if(ret){
+        printk("cdev_add filed\n");
+        goto cdev_fail;
+    }
+	printk("succeeded register char device: %s\n", DEMO_NAME);
+	printk("Major number = %d, minor number = %d\n",
+			MAJOR(dev), MINOR(dev));
+
+	return 0;
+
+    cdev_fail:
+        cdev_del(demo_cdev);
+
+    unregister_chrdev:
+        unregister_chrdev_region(dev,count);
+        return ret;
 }
 
 static void __exit simple_char_exit(void){
+	printk("removing device\n");
 
+	if (demo_cdev)
+		cdev_del(demo_cdev);
+
+	unregister_chrdev_region(dev, count);
 }
 
 
 
-module_init();
-module_exit();
+module_init(simple_char_init);
+module_exit(simple_char_exit);
 
 MODULE_AUTHOR("nuoen");
 MODULE_LICENSE("GPL v2");
