@@ -37,3 +37,36 @@ static const struct file_operations demodrv_fops ={
     .write = demodrv_write
 };
 
+static struct miscdevice miscdev ={
+    .minor = MISC_DYNAMIC_MINOR,
+    .name = DEMO_NAME,
+    .fops = &demodrv_fops
+};
+
+
+static int __init simple_char_init(void){
+    int ret;
+    printk("%s enter\n",__func__);
+    ret = misc_register(&miscdev);
+    if(ret){
+        printk("failed register misc device\n");
+        return ret;
+    }
+    mydemodrv_device = miscdev.this_device;
+    printk("register misc device success\n");
+    retrn 0;
+}
+
+static void __exit simple_char_exit(void){
+    printk("removing device\n");
+    misc_deregister(&miscdev);
+}
+
+
+module_init(simple_char_init);
+module_exit(simple_char_exit);
+
+MODULE_AUTHOR("nuoen");
+MODULE_LICENSE("GPL v2");
+MODULE_DESCRIPTION("This is a demo for misc device");
+
