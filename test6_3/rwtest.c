@@ -55,6 +55,7 @@ static ssize_t dev_write(struct file *file, const char __user *user_buffer, size
     if(ret == need_write){
         return -EFAULT;
     }
+    fasync_helper
     actual_writed = need_write -ret;
     *op = actual_writed;
     printk("%s,actual_writed =%d,pos=%lld\n",__func__,actual_writed,*op);

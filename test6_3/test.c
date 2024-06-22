@@ -24,7 +24,7 @@ void main(){
     read_ret=read(fd,read_buffer,4);
     if(read_ret < 0){
         printf("read failed\n");
-        return; 
+        return;
     }
     printf("first read %d bytes\n",read_ret);
     printf("first read %s \n",read_buffer);
