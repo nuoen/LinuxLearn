@@ -4,12 +4,12 @@
 #include <errno.h>
 
 
-#define GETPUID 453
+#define GETPUID 457
 
 int main(){
     long pid,uid;
     int ret;
-    ret = (int)syscall(453,&pid,&uid);
+    ret = (int)syscall(GETPUID,&pid,&uid);
     if(ret!=0){
         printf("call getpuid failed");
         return 1;

@@ -1,1 +1,1 @@
-cmd_/home/nuoen/linux-6.7.12/kmodule/test6_1/mydemo.o := ld  -m elf_x86_64 -z noexecstack     -r -o /home/nuoen/linux-6.7.12/kmodule/test6_1/mydemo.o /home/nuoen/linux-6.7.12/kmodule/test6_1/simple_char.o
+savedcmd_/home/nuoen/linux-6.7.12/LinuxLearn/test6_1/mydemo.o := aarch64-linux-gnu-ld  -EL  -maarch64elf -z noexecstack     -r -o /home/nuoen/linux-6.7.12/LinuxLearn/test6_1/mydemo.o @/home/nuoen/linux-6.7.12/LinuxLearn/test6_1/mydemo.mod 

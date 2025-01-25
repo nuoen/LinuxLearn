@@ -1,4 +1,7 @@
+#include <string>
+#include <vector>
 
+using namespace std;
 
 struct test {
     int a;
@@ -7,4 +10,6 @@ struct test {
 
 void main(){
     struct test *t=new test();
-}
+    std::string s;
+    s.length();
+ }
