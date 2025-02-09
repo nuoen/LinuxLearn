@@ -6,5 +6,6 @@
 *.mod
 *.symvers
 *.order
+*.mod.c
 .*
 !.gitignore

@@ -17,14 +17,14 @@ static int __init my_init(void){
     pr_info("current cpu %d\n",cur_cpu);
     /**打印cpuvar在所有CPU上的初始值 */
     for_each_possible_cpu(cpu){
-        pr_info("init:cpuvar on cpu%d = %1d\n",cpu,per_cpu(cpuvar,cpu))
+        pr_info("init:cpuvar on cpu%d = %1d\n",cpu,per_cpu(cpuvar,cpu));
     }
 
     //使用 __this_cpu_write 修改当前CPU上的cpuvar值为22
     __this_cpu_write(cpuvar,22);
 
     //使用 get_cpu_var(cpuvar) 来获取当前CPU上的cpuvar值
-    pr_info("cpu%d has motify to %ld\n",cur_cpu,get_cpu_var(cpu_var));
+    pr_info("cpu%d has motify to %ld\n",cur_cpu,get_cpu_var(cpuvar));
     put_cpu_var(cpuvar);
 
 	/* 分配一块新的per-CPU区域给cpualloc，每个CPU上都有一个long类型空间 */
@@ -53,5 +53,7 @@ static void __exit my_exit(void){
 module_init(my_init);
 module_exit(my_exit);
 
+MODULE_LICENSE("GPL");
 MODULE_AUTHOR("nuoen");
-MODULE_LICENSE("GPL v2");
+MODULE_DESCRIPTION("my test kernel module");
+MODULE_ALIAS("mytest");
